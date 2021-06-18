@@ -20,12 +20,31 @@ public class Burrow implements Listener {
             Location l = evt.getPlayer().getLocation();
             int x = l.getBlockX();
             int y = l.getBlockY();
+            double yy = l.getY();
             int z = l.getBlockZ();
             Material b = evt.getPlayer().getLocation().getWorld().getBlockAt(x, y, z).getType();
-            if (b != Material.AIR && b.isOccluding()) {
+            if (b != Material.AIR && (b.isOccluding() || b.equals(Material.ANVIL))) {
                 evt.getPlayer().damage(plugin.getConfig().getInt("BurrowDamageWhenMoving"));
                 if (plugin.getConfig().getBoolean("TeleportBurrow")) {
                     evt.getPlayer().teleport(new Location(l.getWorld(), x, y + 1, z));
+                }
+            }
+            switch (b) {
+                case ENDER_CHEST: {
+                    if (yy - y < 0.875) {
+                        evt.getPlayer().damage(plugin.getConfig().getInt("BurrowDamageWhenMoving"));
+                        if (plugin.getConfig().getBoolean("TeleportBurrow")) {
+                            evt.getPlayer().teleport(new Location(l.getWorld(), x, y + 1, z));
+                        }
+                    }
+                }
+                case ENCHANTMENT_TABLE: {
+                    if (yy - y < 0.75) {
+                        evt.getPlayer().damage(plugin.getConfig().getInt("BurrowDamageWhenMoving"));
+                        if (plugin.getConfig().getBoolean("TeleportBurrow")) {
+                            evt.getPlayer().teleport(new Location(l.getWorld(), x, y + 1, z));
+                        }
+                    }
                 }
             }
         }
