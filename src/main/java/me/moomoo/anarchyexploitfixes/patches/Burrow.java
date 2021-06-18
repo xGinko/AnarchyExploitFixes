@@ -24,6 +24,9 @@ public class Burrow implements Listener {
             Material b = evt.getPlayer().getLocation().getWorld().getBlockAt(x, y, z).getType();
             if (b != Material.AIR && b.isOccluding()) {
                 evt.getPlayer().damage(plugin.getConfig().getInt("BurrowDamageWhenMoving"));
+                if (plugin.getConfig().getBoolean("TeleportBurrow")) {
+                    evt.getPlayer().teleport(new Location(l.getWorld(), x, y + 1, z));
+                }
             }
         }
     }
