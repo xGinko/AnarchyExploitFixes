@@ -23,14 +23,15 @@ public class Burrow implements Listener {
             double yy = l.getY();
             int z = l.getBlockZ();
             Material b = evt.getPlayer().getLocation().getWorld().getBlockAt(x, y, z).getType();
-            if (b != Material.AIR && (b.isOccluding() || b.equals(Material.ANVIL))) {
+            if (!b.equals(Material.AIR) && (b.isOccluding() || b.equals(Material.ANVIL)) && !b.equals(Material.SOUL_SAND)) {
                 evt.getPlayer().damage(plugin.getConfig().getInt("BurrowDamageWhenMoving"));
                 if (plugin.getConfig().getBoolean("TeleportBurrow")) {
                     evt.getPlayer().teleport(new Location(l.getWorld(), x, y + 1, z));
                 }
             }
             switch (b) {
-                case ENDER_CHEST: {
+                case ENDER_CHEST:
+                case SOUL_SAND: {
                     if (yy - y < 0.875) {
                         evt.getPlayer().damage(plugin.getConfig().getInt("BurrowDamageWhenMoving"));
                         if (plugin.getConfig().getBoolean("TeleportBurrow")) {
