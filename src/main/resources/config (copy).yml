@@ -1,0 +1,341 @@
+# Illegal block preventions
+# These are required to be enabled for things like stacked items and 32ks to be prevented.
+PreventPlacingIllegalBlocks: true
+RemoveIllegalBlockOnPlace: true
+RemoveIllegalBlocksOnInteract: true
+RemoveIllegalBlocksOnJoin: true
+RemoveIllegalBlocksOnInventoryOpen: true
+RemoveIllegalBlocksOnDrop: true
+RemoveIllegalBlocksOnClick: true
+RemoveIllegalBlocksOnPickup: true
+RemoveIllegalBlocksOnMove: true
+# Remove illegal blocks on chunkload, useful if players have placed a lot of bedrock/other blocks and you want to get rid of it this is automatically disabled on non 1.12.2 versions due to errors.
+RemoveALLIllegalBlocksOnCHUNKLOAD: false # Please note this may lower tps slightly (or heavily if players have big stashes)
+RemoveIllegalHeadsOnChunkLoad: false # NOT RECOMMENDED TO TURN ON, RAPES TPS!
+RevertStackedItems: true
+RevertEnchantments: true
+RevertUnEnchantable: true # Removes enchantments that normally can't be applied to that item.
+RevertSpecificEnchantments: false # Only revert specific enchantments
+SpecificEnchantments: # If RevertSpecificEnchantments is enabled, only these specific enchantments will be reverted.
+  - "DIG_SPEED" # The name of the enchantment in the spigot api
+ItemsSkipped: # Items that won't be reverted from illegal enchants or unbreakablity.
+  - "GOLDEN_APPLE" # Make sure to keep this line here or else enchanted golden apples will be reverted to normal ones.
+DataValues:
+  RevertSpecificDataValues: true # Required for rest of config options
+  RevertIllegalGoldenApple: true #Revert golden apples that aren't 0 or 1.
+  SpecificDataValues: # If you want to ban any other data values
+    - "SuperIllegalItem(0)" # (0) is the data value. For example GOLDEN_APPLE uses (0) for unenchanted and (1) for enchanted. - NEWER VERSIONS: It is currently not possible to ban specific data values, ALL DATA VALUES WILL BE 0.
+RevertUnbreakables:
+  Enabled: true # Revert unbreakable items, items with less than 0 durability will be automatically removed or set to 0 durability, which will break on the next use. Items with higher than max durability will be set to legal maximum durability.
+  EnableWhitelist: false # If enabled, only items in the whitelist will be reverted.
+  Whitelist:
+    - "DIAMOND_CHESTPLATE" # The name of the item in the spigot api
+  SkipZeroDurability: true # Make sure to keep enabled, otherwise netherite tools will mistakenly be set to maximum durability, due to some bug in spigot.
+# Only removes player heads, not mob heads
+RemoveIllegalHeads: true
+RemoveSpawnEggs: true
+# Check for items every X time may cause lag, disable if you have lag issues
+StrictIllegalPrevention: false
+LookForIllegalsInShulkers: false # WARNING: DO NOT ENABLE IF YOU DON'T WANT A DUPE. Atleast in 1.17 shulkers can easily be duplicated with this enabled. https://cdn.discordapp.com/attachments/810446565822038016/858851144750989312/jbIAkzJ9CU.mp4
+
+# Bugfixes
+PreventNoComCoordinateExploit: true
+NoComMaxDistance: 64 # Recommended not to increase
+PreventEndGatewayCrashExploit: true
+PreventDispenserCrashExploit: true
+PreventSnowBallExploit: true
+PreventFireworksInPortals: true # Patches lag exploit
+PreventDropppedItemsInPortals: true # May prevent a lag exploit.
+PreventAllEntitiesInPortals: false # Only enable if you must... Players are not affected.
+ProjectilesMaxPerTime: 3
+ProjectileTimeTicks: 10 # 3 projectiles can be sent every 10 ticks (0.5 seconds)
+PreventCraftingRecipeLagExploit: true
+CraftingRecipeDelay: 5 # in ticks
+# Patches coordinate exploit for teleportation commands such as /tpa, /home ASWELL as respawn exploits (such as finding location from bed respawn point) Works by vanishing the player for x ticks before teleporting.
+PreventTeleportCoordExploit: true
+TeleportVanishTime: 10 # in ticks
+MinDistanceToVanishPlayer: 100 # Minimum distance to vanish player when teleporting, useful to prevent players from teleporting very fast in the same spot and making the tablist go crazy.
+PreventDestroyingEndPortals: true
+PreventMultipleEnderDragons: true # Prevents multiple ender dragons from spawning when one goes into an end gateway
+PreventPortalTraps: false
+PreventInvalidNames: true # Prevent names with characters that are non letters, numbers, or underscores, or too long/too short.
+
+PreventBurrow: true # Preliminary burrow patch, please test. Makes players take damage every time they move when their feet are in a block
+BurrowDamageWhenMoving: 1 # Half a heart of damage every time you move.
+TeleportBurrow: true #Teleport player above block
+PreventBurrowIfBlockAbove: false # Prevent burrow even if there is a block above the block they are burrowing in, please note this may allow creating an "elevator", players will keep teleporting up until they hit air
+BreakAnvilInsteadOfTeleport: true # Break anvil instead of teleporting player.
+AllowSlabsInBurrow: true # Disabled by default in 1.12, needs to be enabled to prevent a bug where players are teleported above a slab when the slab is underwater, only happens in newer versions.
+
+PreventBookBan: true
+MaxByteSize: 255 # Per page - Not recommended to touch this
+
+# These are automatically disabled on non 1.12.2 versions due to errors.
+FillInBedrockFloor: true
+FillInBedrockRoof: true
+#
+PreventGoingBelowBedrockFloor: true
+DisableAllElytras: false
+DisableWithers: false
+RemoveWitherHeadsAutomatically: true # Experimental: Will remove wither heads on chunk unload or if its been longer than x ticks
+RemoveWitherHeadsAutomaticallyTicks: 200 # 10 seconds
+RemoveAllWitherSkulls: false
+DisableWitherSpawningAtSpawn: #Switching all to false will disable it completely
+  overworld: false
+  nether: false
+  end: false
+  radius: 5000
+  message: "&4Wither spawning is disabled in %radius% blocks from spawn."
+DisableExplosions: false
+FixChatcoIgnoreBug: true
+# Attempt to prevent chunk bans/fps lag.
+# Automatically disabled in non 1.12 due to a shit ton of errors
+PreventChunkBan: true
+CustomMaxPerChunk: # CUSTOM block chunk limit configuration - SPIGOT ITEM NAMES!! FIND ON https://papermc.io/javadocs/paper/1.12/org/bukkit/Material.html
+  BARRIER: 5
+
+MaxEnchantmentTablePerChunk: 16
+MaxEnderchestPerChunk: 64
+MaxContainerPerChunk: 1000
+MaxSignPerChunk: 100
+MaxSlimePerChunk: 128
+MaxBeaconPerChunk: 32
+MaxHopperPerChunk: 32
+MaxPistonPerChunk: 32 # Would allow 64 if sticky pistons are also being used.
+MaxGlowstonePerChunk: 99999 # Set to 99999 by default, limit if you wish.
+MaxBannersPerChunk: 100
+MaxSkullsPerChunk: 50
+#
+# Antispam time in seconds
+PreventSpam: true
+# Global limit
+AntiSpamTime: 1 # 1 message per second
+# How many messages should we allow to send in x seconds (converted to ticks)
+AntiSpamCheckTime: 30
+AntiSpamMessagesPerTime: 10 # ~1 message every 3 seconds if constantly spamming
+AntiSpamWordTime: 60
+AntiSpamLinkTime: 300
+AntiSpamCommands: true # Use the same antispam options for commands aswell.
+AntiSpamCommandsUseWhitelist: true # Only enable antispam for commands specified below.
+AntiSpamCommandsWhitelist:
+  - /msg
+  - /message
+  - /r
+  - /reply
+  - /w
+  - /whisper
+  - /tell
+CharacterLimit: 128
+PreventUnicodeDot: true
+MoreLenientLinkCheck: true # Won't get triggered by just the word discord and dc
+AllowLinksForOP: true
+#
+# Removes entities or players if "invalid", not sure if this works. Seems too simple. But again, mojang is retarded.
+ExperimentalGodModePatch: true
+PreventCommandSign: true
+# Disable the 1.16 fish from spawning, there is a shit ton of them that spawn and this can cause a ton of lag, automatically disabled in 1.12
+DisableFish: true
+# Prevent massive sand chunks from killing the server, prevents any falling blocks from falling if there is more than 50 falling blocks in a chunk
+LimitFallingBlocks: true
+FallingBlockLimit: 50 # Max in a chunk
+# Prevent having a shit ton of exp bottles in one chunk then loading it to kill the server
+LimitExpBottles: true
+ExpBottleLimit: 25 # Max in a chunk, doesn't limit the actual xp orbs.
+# Prevent projectiles such as xp bottles and snowballs from going through portals, this can cause a shit ton of lag especially if there is new chunks on the other end, this wont prevent mobs or items
+PreventProjectilesFromGoingThroughPortals: true
+PreventMinecartLag: true
+MaxVehiclesInChunk: 25
+StrictVehicleCheck: false # Check all chunks every 10 seconds (200 ticks) for vehicles.
+PreventTooManyEntitiesInChunk: false # Check all chunks every 30 seconds for too many entities, removes any entities left after reaching limit
+MaxEntitiesInChunk: 100 # Does not include living entities. (animals/monsters) useful if players are placing a shit ton of crystals etc in one chunk and crashing the server.
+LogEntityRemovals: false
+EntityCheckTimeTicks: 20 # 1 second
+
+PreventBowBombExploit: true # Please report any problems in GitHub/Discord.
+MaxBowSquaredVelocity: 15 # Fully pulled bow is ~9-10. 15 is default just to be safe.
+
+AntiBedTrap: false
+AntiBedTrapDeathAmount: 2 # x deaths in 30 secs will reset someones bed.
+
+# This will automatically teleport players below nether roof if they are too high. Use permission node anarchyexploitfixes.netherroofbypass to bypass
+PreventNetherRoof: false
+
+#Dupe preventions
+DisableChestsOnDonkeys: false
+PreventDonkeysFromGoingThroughPortals: false
+PatchEndPortalDupe: true # https://www.youtube.com/watch?v=RLvErqzeK3Y
+# Not sure if this works, please try it
+ExperimentalDupePatch: true
+# I don't know if this works, someone on discord said I should prevent the mobs from despawning if they are 500 blocks near a player.
+# Automatically disabled in non 1.12 because it causes a SHIT ton of mobs to spawn: https://i.imgur.com/f691cep.png and disabled by default in the config because a shit ton of enderman spawn
+ExperimentalDupePatch2: false
+
+# Other options
+# If the server is running a version higher than 1.12.2 there will be a shit ton of errors for some config options. It is not recommended to enable this unless you know they work.
+OverideConfigChanges: false
+DisableAllProtocolLib: false # Use only if you are having problems with protocollib when starting the plugin (especially 1.16)
+MaskKickMessages: false
+KickMessage: "&6You have lost connection to the server"
+PreventSpamKick: false
+Preventlinks: false # Code by John200410, edited by moomoo
+Replace@: false
+
+# If you want to hide yourself or someone else when logging into the game, just give these rights:
+#  anarchyexploitfixes.silentJoin
+#  anarchyexploitfixes.silentLeave
+JoinLeaveMessages: false
+ConnectionMsgsOnByDefault: true # /toggleconnectionmsgs
+EnableFirstJoinMessage: false
+FirstJoinMessage: "&7%player% joined the game for the first time. They are %players_num% to join." # %players_num% is how many players have joined the server + the current one (ex. 351th)
+JoinMessage: "&7%player% joined the game."
+LeaveMessage: "&7%player% left the game."
+DisabledMessage: "&7Disabled connection msgs"
+EnabledMessage: "&7Enabled connection msgs"
+# COMMAND WHITELIST
+# This will make it pretty much impossible to find your plugins as only the commands you specify will be able to work. Any other commands will show "Bad command. Type /help for all commands."
+CommandWhitelist: false
+AllowOPStobypass: true
+CommandsWhitelisted:
+  - /help
+  - /msg
+  - /kill
+  - /discord
+  - /togglechat
+  - /toggletells
+  - /ignore
+  - /ignorelist
+  - /toggledeathmsg
+  - /stats
+  - /tps
+  - /w
+  - /m
+  - /t
+  - /pm
+  - /tell
+  - /whisper
+  - /r
+  - /reply
+
+BannedWords:
+  - "what's 2+2"
+BannedRegex:
+  - "^This is a(.*)banned message" # Prevents any message that starts with "This is a" and ends with "banned message"
+LinkRegex:
+  - "(https?://(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?://(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})"
+  - "[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z()]{1,6}\\b([-a-zA-Z()@:%_+.~#?&/=]*)"
+
+# Specific Elytra speed settings for ONLY NEW and OLD chunks (set nocheatplus elytra settings to 999999)
+# Disable by setting to 999999
+ElytraOldChunkSpeed: 1.81 # 130km/h
+ElytraNewChunkSpeed: 1.81 # 130km/h
+
+# Burst elytra speed settings, if the tps is above the amount it will use these settings.
+EnableBursting: true
+ElytraBurstOldChunkSpeed: 5
+ElytraBurstOldChunkTPS: 18
+ElytraBurstNewChunkSpeed: 3.12 # 223km/h
+ElytraBurstNewChunkTPS: 19
+
+# Spawn elytra settings
+ElytraAtSpawn:
+  Enabled: false
+  SpeedOldChunks: 1.0
+  SpeedNewChunks: 0.8
+  Radius: 3000
+
+LimitRenderDistanceBasedOnTPS: false # Recommended not to use, papers render distance changer is laggy? Try at your own will.
+# Radius for chunks when the server is below your tps amount
+NewChunkRadius: 3
+OldChunkRadius: 3
+# Radius for chunks when the server is above your tps amount
+NewChunkBurstRadius: 3
+OldChunkBurstRadius: 6
+# If the server is below this tps it will use the non burst radius.
+NewChunkBurstTPS: 19
+OldChunkBurstTPS: 18
+
+# Show some info on the actionbar while flying with elytra.
+ElytraActionBar: true
+
+# Patches the future/rusherhack/kamiblue 2b2t elytra fly exploit
+PatchPacketElytraFly: false
+OnlyElytraPacketKick: false #If enabled, the plugin will not remove elytra from the player, but simply disconnect from the server.
+PacketElytraActionBar:
+  enabled: false
+  message: "&cDisable Packet Elytra Fly." # for action bar and kick message
+# Recommended to not go lower as there could be false positives.
+MaxElytraOpensPer10Seconds: 25 # Will only allow players to go about 85km/h on kami blue, and won't even work on rusherhack.
+
+# Patch future/rusher packet fly
+PreventPacketFly: true
+# Max teleport packets per 10 seconds, this is how the packet fly works, 25 is usually fine, if you go lower players may get stuck.
+MaxTeleportPacketsPer10Seconds: 25
+LogPacketFlyEvents: false
+
+# Patch futureclient/rusherhack boat fly exploit
+# This does not affect boats at all! Even on land.
+BoatflyPatch: true
+MaxEntityPacketsPer10Seconds: 15 # Only counts for boats
+LogBoatFlyEvents: true
+
+# List of banned blocks.
+# WARNING: ADDING MOB SPAWNER TO THIS LIST WHILE HAVING RemoveALLIllegalBlocksOnCHUNKLOAD ENABLED WILL REMOVE ALL MOB SPAWNERS IN YOUR WORLD.
+# You can also add non blocks and they should get removed from inventories aswell.
+BANNED_BLOCKS: # SPIGOT ITEM NAMES!!! YOU WILL RECEIVE AN ERROR IF YOU DO NOT FOLLOW https://papermc.io/javadocs/paper/1.12/org/bukkit/Material.html
+  - BEDROCK
+  - BARRIER
+  - COMMAND
+  - STRUCTURE_BLOCK
+  - ENDER_PORTAL_FRAME # the issue where the plugin thinks a player has placed a end portal frame when activating the portal has been fixed.
+DisableBannedBlocksWarnings: false # Disable warnings for some reason
+
+BANNED_NAMES: # Remove items that were custom named to a specific string. Suggested by STORMIN.
+  - "Super Insane Mega Sussy Item" # case sensitive
+OnlyRevertStacksForCertainItems: false
+RevertStackedItemsList:
+  - TOTEM
+# The item banned blocks are replaced with.
+Replacement_Item: STONE
+
+# Redstone
+# Will kick player if they hit lever LeverLimitAmount times within LeverLimitTime
+RateLimitLevers: false
+LeverLimitAmount: 5
+LeverLimitTime: 40
+RateLimitKick: false
+RateLimitKickMsg: "&cLevers are currently disabled due to an exploit"
+
+# DISABLE STUFF AT CERTAIN TPS
+# SET TO -1 TO ENABLE ALL THE TIME.
+Redstone: 16
+
+Elytra: 13
+# Removes the elytra from the player's chestplate slot, there is no need to do this as this will make players fall to their death once tps is low.
+RemoveElytra: false
+
+Explosions: 17
+
+FallingBlocks: 19
+
+# Disable certain classes - Semi advanced users only. Useful if you are having problems with specific classes or would like the negligible performance improvement of not needing to register events in the class.
+# Caps SENSITIVE - To disable ProtocolLib, set DisableAllProtocolLib to true.
+DisabledClasses:
+  - "TestClass" # MUST BE CORRECT CAPITALS, CHECK SOURCE CODE, ERROR MESSAGES, OR TIMINGS REPORTS FOR CLASS NAMES.
+
+
+# END OF CONFIG
+
+# No need to mess with these they are meant for my server
+# 1b1t options
+AllowBreakingBedrock: false
+1b1tPlaceBedrock: false
+UseSparkhealth: false
+nickresetonly: false
+5000blocksawaytoteleport: false
+# Enable the shitty 1b1t slow! dupe - 5% chance of duplicating items by punching an item frame.
+SlowDupe: false
+MakeSpecificCommandsHurtYou: false
+HurtCommands:
+  - /tpa
+DisableNCPGeyser: false
+BypassSlots: false
